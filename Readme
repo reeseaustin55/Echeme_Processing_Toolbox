@@ -1,1 +1,39 @@
-temp
+# Echem Processing Toolbox
+
+A Tkinter-based GUI for batch processing Biologic electrochemistry datasets. The tool mirrors the MATLAB workflow provided by the user and supports:
+
+- Automatic discovery of GEIS (EIS), CP, and CV files in a selected folder.
+- Optional use of native `.mpr` files when the [`eclabfiles`](https://pypi.org/project/eclabfiles/) package is available, falling back to tab-delimited `.txt` exports otherwise.
+- Chronopotentiometry averaging with substrate subtraction, reference offset, and iR correction.
+- Complex non-linear EIS fitting to extract Rs and R1 per cycle.
+- CV charge integration with iR correction and configurable potential window.
+- Export of individual SVG plots for each dataset with a configurable figure width and optional error bars.
+
+## Usage
+
+1. Install the required Python dependencies:
+   ```bash
+   pip install matplotlib numpy
+   # Optional for .mpr support
+   pip install eclabfiles
+   ```
+
+2. Launch the GUI:
+   ```bash
+   python main.py
+   ```
+
+3. In the application window:
+   - Select the folder containing your Biologic exports.
+   - Select the substrate calibration file.
+   - Adjust the processing parameters (plot width, averaging window, reference offset, CV window, and charge offsets) as needed.
+   - Toggle the "Show error bars" option if you wish to include/exclude error bars in the generated figures.
+   - Click **Start Processing**.
+
+4. Processed SVG figures are saved in a timestamped `processed_YYYYMMDD_HHMMSS` folder within the selected data directory.
+
+## Notes
+
+- The EIS fitting implementation uses a custom Levenberg–Marquardt solver built with NumPy to avoid SciPy dependencies.
+- CV charge plots are generated as individual figures rather than subplots to match the requested output format.
+- Error messages and progress updates appear in the log panel at the bottom of the GUI.
