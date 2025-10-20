@@ -5,7 +5,7 @@ import math
 from dataclasses import dataclass
 from typing import Callable, List, Tuple
 
-import numpy as np
+from .dependencies import np
 
 from .io_utils import NumericTable
 

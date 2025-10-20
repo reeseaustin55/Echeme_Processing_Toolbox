@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Iterable, Optional
 
 import matplotlib.pyplot as plt
-import numpy as np
+from .dependencies import np
 
 plt.style.use("seaborn-v0_8-whitegrid")
 

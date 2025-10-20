@@ -8,7 +8,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional
 
-import numpy as np
+from .dependencies import np
 
 try:  # Optional dependency for .mpr parsing
     from eclabfiles import MPRfile  # type: ignore

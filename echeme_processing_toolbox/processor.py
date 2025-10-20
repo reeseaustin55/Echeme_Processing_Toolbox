@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable, Iterable, List, Sequence
 
-import numpy as np
+from .dependencies import np
 
 from .cp import CPProcessingResult, process_cp
 from .cv import CVCharges, integrate_cv_charges

@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable, Tuple
 
-import numpy as np
+from .dependencies import np
 
 from .eis import EISFitResult
 from .io_utils import NumericTable
