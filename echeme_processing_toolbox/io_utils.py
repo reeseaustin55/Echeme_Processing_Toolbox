@@ -12,8 +12,13 @@ import numpy as np
 
 try:  # Optional dependency for .mpr parsing
     from eclabfiles import MPRfile  # type: ignore
-except Exception:  # pragma: no cover - optional import guard
+    _MPR_IMPORT_ERROR: Optional[Exception] = None
+except ModuleNotFoundError as exc:  # pragma: no cover - optional import guard
     MPRfile = None
+    _MPR_IMPORT_ERROR = exc
+except Exception as exc:  # pragma: no cover - unexpected import failure
+    MPRfile = None
+    _MPR_IMPORT_ERROR = exc
 
 
 _HEADER_SANITIZE_RE = re.compile(r"[^a-z0-9]+")
@@ -111,9 +116,10 @@ def read_mpr_table(path: Path) -> NumericTable:
     """Load data from a Biologic ``.mpr`` binary file if support is available."""
 
     if MPRfile is None:
+        extra = f" (original error: {_MPR_IMPORT_ERROR})" if _MPR_IMPORT_ERROR else ""
         raise RuntimeError(
-            "Reading .mpr files requires the optional 'eclabfiles' package. "
-            "Install it with 'pip install eclabfiles' or export the data as .txt."
+            "Reading .mpr files requires the optional 'eclabfiles' package and its dependencies. "
+            "Install it with 'pip install eclabfiles' or export the data as .txt." + extra
         )
 
     mpr = MPRfile(str(path))  # type: ignore[call-arg]
